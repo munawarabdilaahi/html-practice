@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7fcf9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 230vh;
+            margin: 0;
+        }
+
+        .calendar {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 70%;
+            max-width: 1300px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .month-name {
+            font-size: 2.3em;
+            font-weight: bold;
+        }
+
+        .year-selector {
+            font-size: 2.3em;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Bilaha 3 kolom oo isku xigta */
+            gap: 10px;
+            grid-template-rows: repeat(4, 1fr); /* 4 saf */
+            margin-top: 20px;
+        }
+
+        .calendar-grid .month {
+            background-color: #d3ead7;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(34, 145, 24, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-grid .month:hover {
+            background-color: #e6efe9;
+        }
+
+        .calendar-grid .month h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .days div {
+            padding: 5px;
+            text-align: center;
+        }
+
+        .day-name {
+            font-weight: bold;
+            background-color: #188b34;
+            color: white;
+        }
+
+        .day {
+            color: #040410;
+            cursor: pointer;
+        }
+
+        .empty {
+            color: transparent;
+        }
+
+        .day.selected {
+            background-color: #ff9900;
+            color: white;
+            border-radius: 50%;
+        }
+
+        .selected-date {
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .clear-selection {
+            margin-top: 20px;
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .clear-selection:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calendar">
+        <div class="calendar-header">
+            <button onclick="changeYear(-1)">&#8249;</button>
+            <span class="year-selector" id="year-display">2025</span>
+            <button onclick="changeYear(1)">&#8250;</button>
+        </div>
+
+        <div class="calendar-grid" id="calendar-grid"></div>
+        
+        <!-- Show the selected date -->
+        <div class="selected-date" id="selected-date">Selected Date: None</div>
+
+        <!-- Button to clear selection -->
+        <button class="clear-selection" onclick="clearSelection()">Clear Selection</button>
+    </div>
+
+    <script>
+        const months = [
+            "January", "February", "March", "April", "May", "June", 
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        let currentYear = 2025;  // Default year
+        let selectedDay = null;   // To track the selected day
+
+        function changeYear(direction) {
+            currentYear += direction;
+            document.getElementById('year-display').innerText = currentYear;
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const calendarGrid = document.getElementById('calendar-grid');
+            calendarGrid.innerHTML = '';
+
+            months.forEach((month, index) => {
+                const monthDiv = document.createElement('div');
+                monthDiv.classList.add('month');
+
+                const monthTitle = document.createElement('h3');
+                monthTitle.classList.add('month-name');
+                monthTitle.textContent = month;
+
+                const daysDiv = document.createElement('div');
+                daysDiv.classList.add('days');
+
+                // Create the day names (Sun, Mon, Tue, ...)
+                daysOfWeek.forEach(day => {
+                    const dayName = document.createElement('div');
+                    dayName.classList.add('day-name');
+                    dayName.textContent = day;
+                    daysDiv.appendChild(dayName);
+                });
+
+                // Get the number of days in the month and the starting day of the week
+                const firstDay = new Date(currentYear, index, 1).getDay();
+                const daysInMonth = new Date(currentYear, index + 1, 0).getDate();
+
+                // Create empty divs for the days before the 1st day of the month
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.classList.add('empty');
+                    daysDiv.appendChild(emptyDiv);
+                }
+
+                // Create the day numbers for the month
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.classList.add('day');
+                    dayDiv.textContent = i;
+                    dayDiv.onclick = function() {
+                        selectDay(i, month, index);
+                    };
+
+                    // Highlight the selected day
+                    if (selectedDay && selectedDay.day === i && selectedDay.monthIndex === index) {
+                        dayDiv.classList.add('selected');
+                    }
+
+                    daysDiv.appendChild(dayDiv);
+                }
+
+                monthDiv.appendChild(monthTitle);
+                monthDiv.appendChild(daysDiv);
+                calendarGrid.appendChild(monthDiv);
+            });
+        }
+
+        function selectDay(day, month, monthIndex) {
+            selectedDay = { day, month, monthIndex };
+            document.getElementById('selected-date').innerText = ` ${day} ${month} ${currentYear}`;
+            renderCalendar(); // Re-render the calendar to highlight the selected day
+        }
+
+        function clearSelection() {
+            selectedDay = null;
+            document.getElementById('selected-date').innerText = 
+            renderCalendar(); // Re-render the calendar to remove the highlight
+        }
+
+        // Render the calendar when the page loads
+        renderCalendar();
+    </script>
+
+</body>
+</html>
