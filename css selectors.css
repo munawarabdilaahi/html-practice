@@ -1,0 +1,18 @@
+h1{
+    background-color: aqua;
+}
+*{
+    margin: 0%;
+    padding: 5%;
+}
+.selector{color: brown;}
+
+#idselector{
+    font-size: 50px;
+    background-color: coral;
+}
+p, h1{color: crimson;}
+div p{
+    font-size: larger;
+    background-color: darkgreen;
+}

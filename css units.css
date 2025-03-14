@@ -1,0 +1,22 @@
+.container {
+    width: 800px;
+    height: 400px;
+    background-color: aqua;
+    font-size: 1rem;
+    /*16 1 *16 16px*/
+}
+
+.title {
+    font-size: 2rem;
+}
+
+.box {
+    width: 100%;
+    background-color: chartreuse;
+}
+
+.fullscreen {
+    width: 62.9vw;
+    height: 10vh;
+    background-color: rgb(41, 110, 150);
+}
