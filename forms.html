@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<hml>
+    <head>
+        <title>Registration form</title>
+        <style>
+            /* Buluug u samee calaamadaha doorashada */
+            input[type="radio"] {
+                appearance: none; /* Ka saar muuqaalka caadiga ah ee radio button */
+                -webkit-appearance: none; /* Safari */
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                border: 2px solid #ccc;
+                transition: all 0.3s ease;
+                background-color: white; /* Midabka asalka ah */
+            }
+    
+           /* Marka la xusho, calaamadda dhibicda (radio) buluug noqoto */
+           input[type="radio"]:checked {
+                background-color: blue; /* Midabka buluugga */
+                border-color: blue; /* Isbedelka xadka */
+            }
+    
+            label {
+                font-size: 18px;
+                color: #0b0b0f;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+<h1>Registration form</h1>
+<form>
+<label>Name</label><br/>
+<input type="text"maxlength="7" required placeholder="Enter your name"/><br/>
+<label>Email</label><br/>
+<input type="Email"placeholder="Enter your name"/><br/>
+<label>Gender</label><br/>
+<input type="radio"name="Gender"value="Male"/>
+<label>Male</label>
+<input type="radio" name="Gender"value="Female"/>
+<label>Female</label><br>
+<style> 
+</style>
+<label>Select Course</label><br>
+<select>
+<option>Html</option>
+<option>Css</option>
+<option>Js</option><br>
+<textarea>
+
+</textarea>
+<input type="submit"value="Enter">
+
+
+</select>
+</form>
+&copy;MUNAWAR 2025
+    </body>
+</hml>
