@@ -1,60 +1,241 @@
 <!DOCTYPE html>
-<hml>
-    <head>
-        <title>Registration form</title>
-        <style>
-            /* Buluug u samee calaamadaha doorashada */
-            input[type="radio"] {
-                appearance: none; /* Ka saar muuqaalka caadiga ah ee radio button */
-                -webkit-appearance: none; /* Safari */
-                width: 14px;
-                height: 14px;
-                border-radius: 50%;
-                border: 2px solid #ccc;
-                transition: all 0.3s ease;
-                background-color: white; /* Midabka asalka ah */
-            }
-    
-           /* Marka la xusho, calaamadda dhibicda (radio) buluug noqoto */
-           input[type="radio"]:checked {
-                background-color: blue; /* Midabka buluugga */
-                border-color: blue; /* Isbedelka xadka */
-            }
-    
-            label {
-                font-size: 18px;
-                color: #0b0b0f;
-                cursor: pointer;
-            }
-        </style>
-    </head>
-    <body>
-<h1>Registration form</h1>
-<form>
-<label>Name</label><br/>
-<input type="text"maxlength="7" required placeholder="Enter your name"/><br/>
-<label>Email</label><br/>
-<input type="Email"placeholder="Enter your name"/><br/>
-<label>Gender</label><br/>
-<input type="radio"name="Gender"value="Male"/>
-<label>Male</label>
-<input type="radio" name="Gender"value="Female"/>
-<label>Female</label><br>
-<style> 
-</style>
-<label>Select Course</label><br>
-<select>
-<option>Html</option>
-<option>Css</option>
-<option>Js</option><br>
-<textarea>
+<html lang="en">
 
-</textarea>
-<input type="submit"value="Enter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- Link to Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-</select>
-</form>
-&copy;MUNAWAR 2025
-    </body>
-</hml>
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            /* background-color: #ffffff; */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        label {
+            font-size: 18px;
+            color: #0b0b0f;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        input[type="radio"]:checked {
+            background-color: blue;
+            border-color: blue;
+        }
+
+        .radio-group label {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .icon {
+            margin-right: 8px;
+            color: #17a43a;
+        }
+
+        input[type="submit"] {
+            background-color: #17a43a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1eaf47;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #000000;
+            color: white;
+        }
+
+        .dark-mode input[type="text"],
+        .dark-mode input[type="email"],
+        .dark-mode select,
+        .dark-mode textarea,inputs,select {
+            background-color: #555;
+            /* color: white; */
+            /* border: 1px solid #920303; */
+        }
+
+        .dark-mode input[type="submit"] {
+            background-color: #1eaf47;
+        }
+
+        .dark-mode label {
+            color: #ccc;
+        }
+
+        .dark-mode .icon {
+            color: #ffffff;
+        }
+
+        .dark-mode footer {
+            color: #ccc;
+        }
+
+        .dark-mode .radio-group input[type="radio"] {
+            border-color: #777;
+        }
+
+        /* Toggle Button in the top right */
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            /* background-color: #020202; */
+            /* color: rgb(105, 26, 26); */
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-button:hover {
+            background-color: #9f9e9e;
+        }
+
+        .toggle-button i {
+            margin-right: 10px;
+        }
+
+        /* Styling when dark mode is active */
+        .dark-mode .toggle-button {
+            background-color: #ffffff;
+        }
+
+        .dark-mode .toggle-button i {
+            color: rgb(8, 8, 8);
+        }
+
+        /* Styling for Dropdown with Icons */
+        select {
+            background: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/svgs/solid/caret-down.svg') no-repeat right center;
+            background-size: 20px;
+            padding-right: 35px;
+        }
+
+        select option {
+            padding-left: 10px;
+        }
+
+        /* Custom Dropdown with Icon for Dark Mode */
+        .dark-mode select {
+            background: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/svgs/solid/caret-down.svg') no-repeat right center;
+            background-size: 20px;
+            color: white;
+            background-color: #0b0b0f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Registration Form</h1>
+
+    <form id="registrationForm">
+        <label for="name"><i class="fas fa-user icon"></i>Name</label><br />
+        <input type="text" id="name" maxlength="7" required placeholder="Enter your name" /><br />
+
+        <label for="email"><i class="fas fa-envelope icon"></i>Email</label><br />
+        <input type="email" id="email" placeholder="Enter your email" /><br />
+
+        <label>Gender</label><br />
+        <div class="radio-group">
+            <input type="radio" name="Gender" value="Male" id="male" />
+            <label for="male"><i class="fas fa-mars icon"></i>Male</label>
+            <input type="radio" name="Gender" value="Female" id="female" />
+            <label for="female"><i class="fas fa-venus icon"></i>Female</label>
+        </div>
+
+        <label for="course"><i class="fas fa-graduation-cap icon"></i>Select Course</label><br>
+        <select id="course">
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="JavaScript">JavaScript</option>
+        </select><br>
+
+        <label for="message"><i class="fas fa-comment-dots icon"></i>Message</label><br />
+        <textarea id="message" placeholder="Enter your message"></textarea><br />
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <footer style="text-align: center; margin-top: 40px;">
+        <p>&copy;MUNAWAR 2025</p>
+    </footer>
+
+    <!-- Toggle Button to Switch Themes -->
+    <button class="toggle-button" onclick="toggleTheme()">
+        <i class="fas fa-adjust"></i>Toggle Dark/Light Mode
+    </button>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('dark-mode'); // Toggle dark mode class on the body
+        }
+    </script>
+
+</body>
+
+</html>
